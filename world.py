@@ -32,6 +32,11 @@ world.fillna(0, inplace=True)
 
 
 
+
+print(world.groupby('Region')[['GDP ($ per capita)', 'Literacy (%)', 'Agriculture']].median())
+
+
+
 #BAR GRAPH OF TOP 30 COUNTRIES WITH HIGHEST POPULATIONS
 mostPop30Data = world.sort_values("Population", ascending = False).head(30)
 
@@ -95,6 +100,21 @@ plt.show()
 
 
 
+
+
+
+print(world["Region"].value_counts())
+#BOX PLOT OF GDP VS REGION
+sns.boxplot(x="Region",y="GDP ($ per capita)",data=world,width=0.7,palette="Set3",fliersize=5)
+plt.xticks(rotation=90)
+plt.title("GDP BY REGİON",color="black")
+
+
+
+
+
+
+
 #DOT PLOT OF GDP VS BIRTHRATE
 plt.figure(figsize = (10, 5))
 sns.lmplot(x = "GDP ($ per capita)", y = "Birthrate", data = world)
@@ -104,9 +124,57 @@ plt.title("GDP vs Birthrate")
 plt.show()
 
 
+
+
+
+
+
+
+
+
+
+
+#BAR GRAPH OF GDP VS COUNTRY
+fig, ax = plt.subplots(figsize=(16,6))
+top_gdp_countries = world.sort_values('GDP ($ per capita)',ascending=False).head(20)
+mean = pd.DataFrame({'Country':['World mean'], 'GDP ($ per capita)':[world['GDP ($ per capita)'].mean()]})
+gdps = pd.concat([top_gdp_countries[['Country','GDP ($ per capita)']],mean],ignore_index=True)
+sns.barplot(x='Country', y='GDP ($ per capita)', data=gdps, palette='Set1')
+ax.set_xlabel(ax.get_xlabel(), labelpad=15)
+ax.set_ylabel(ax.get_ylabel(), labelpad=30)
+ax.xaxis.label.set_fontsize(16)
+ax.yaxis.label.set_fontsize(16)
+plt.xticks(rotation=90)
+plt.show()
+
+
+
+#BAE GRAPH OF REGIONAL AVERAGE GDP PER CAPITA
+fig = plt.figure(figsize=(12, 4))
+world.groupby('Region')['GDP ($ per capita)'].mean().sort_values().plot(kind='bar')
+plt.title('Regional Average GDP per Capita')
+plt.xlabel("Region")
+plt.ylabel('Average GDP per Capita')
+plt.show()
+
+
+
+
+
+
+
+
+#BAR GRAPH OF NUMBER OF COUNTRIES BY REGION
+region = world.Region.value_counts()
+plt.figure(figsize=(10,7))
+sns.barplot(x=region.index,y=region.values)
+plt.xticks(rotation=45)
+plt.ylabel('Number of countries')
+plt.xlabel('Region')
+plt.title('Number of Countries by REGİON',color = 'black',fontsize=20)
+
+
 #%%
-
-
 
 #LINE PLOT OF BIRTHRATE VS RATE
 plt.plot(world["Birthrate"])
@@ -118,7 +186,7 @@ plt.show()
 
 
 
-
+#PIE GRAPH OF CONTINENTS DISTRIBUTION
 explode = (0, 0.1, 0, 0,0,0,0)
 sizes=[15,10,25,5,30,5,10]
 labels="ASIA","EASTERN EUROPE","NORTHERN AFRICA","OCEANIA","WESTERN EUROPE","SUB-SAHARAN AFRICA","NORTHERN AMERICA"
@@ -127,3 +195,10 @@ ax1.pie(sizes, labels=labels,explode=explode, autopct='%1.1f%%',
         shadow=True, startangle=90)
 ax1.axis('equal')
 plt.show()
+
+#%%
+
+
+#COMING SOON
+print('This is the end')
+
