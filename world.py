@@ -130,10 +130,6 @@ plt.show()
 
 
 
-
-
-
-
 #BAR GRAPH OF GDP VS COUNTRY
 fig, ax = plt.subplots(figsize=(16,6))
 top_gdp_countries = world.sort_values('GDP ($ per capita)',ascending=False).head(20)
@@ -161,9 +157,6 @@ plt.show()
 
 
 
-
-
-
 #BAR GRAPH OF NUMBER OF COUNTRIES BY REGION
 region = world.Region.value_counts()
 plt.figure(figsize=(10,7))
@@ -172,19 +165,6 @@ plt.xticks(rotation=45)
 plt.ylabel('Number of countries')
 plt.xlabel('Region')
 plt.title('Number of Countries by REGİON',color = 'black',fontsize=20)
-
-
-#%%
-
-#LINE PLOT OF BIRTHRATE VS RATE
-plt.plot(world["Birthrate"])
-plt.xlabel('Rate')
-plt.ylabel('Birthrate')
-plt.title('Line Plot')
-plt.grid(True)
-plt.show()
-
-
 
 #PIE GRAPH OF CONTINENTS DISTRIBUTION
 explode = (0, 0.1, 0, 0,0,0,0)
@@ -199,6 +179,5 @@ plt.show()
 #%%
 
 
-#COMING SOON
-print('This is the end')
-
+#BOX PLOT OF LITERACY
+world.boxplot(column = ["Literacy (%)"])
